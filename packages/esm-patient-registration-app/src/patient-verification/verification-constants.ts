@@ -14,7 +14,7 @@ export const patientRegistries = [
   {
     uuid: '',
     id: 3,
-    name: 'E.A Shared Health Record',
+    name: 'Cross Border Registry',
     url: 'http://ea-shr-url',
   },
 ];

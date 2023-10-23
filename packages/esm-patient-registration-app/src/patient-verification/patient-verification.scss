@@ -50,13 +50,14 @@
 }
 
 .expandBtnSection {
-  margin: 0.5rem 0 1rem 0;
+  margin: 1.5rem 0 1rem 0;
   button {
     padding: 0;
     color: colors.$blue-70;
     border: none;
     background-color: colors.$cool-gray-10;
     text-decoration: underline;
+    cursor: pointer;
   }
   button:hover {
     color: colors.$blue-90;

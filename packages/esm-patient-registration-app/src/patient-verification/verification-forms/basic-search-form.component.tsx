@@ -6,7 +6,7 @@ import RegistrySelect from './fields/registry-select.component';
 
 const BasicSearchForm = ({ isLoading, basicSearchParams, setBasicSearchParams, handleSearch, editableInput }) => {
   const { t } = useTranslation();
-  const disableButton = !(basicSearchParams.identifier && basicSearchParams.registry.length);
+  const disableButton = !basicSearchParams.registry.length;
   return (
     <Form onSubmit={handleSearch} className={''}>
       <Stack gap={3}>

@@ -17,12 +17,7 @@ const EmptyPrompt: React.FC<EmptyPromptProps> = ({ close, onConfirm }) => {
         </h3>
       </div>
       <div className="cds--modal-content">
-        <p>
-          {t(
-            'patientNotFound',
-            "Enter the patient's details and click the Post to registry button to record their data before completing registration.",
-          )}
-        </p>
+        <p>{t('patientNotFound', 'Continue with registration to capture patient details')}</p>
       </div>
       <div className="cds--modal-footer">
         <Button kind="secondary" onClick={close}>

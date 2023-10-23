@@ -77,17 +77,17 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
   }, [config.sections, config.sectionDefinitions]);
 
   const onFormSubmit = async (values: FormValues, helpers: FormikHelpers<FormValues>) => {
-    if (verificationSearchParams.registry.length) {
-      const dispose = showModal('post-to-registry-modal', {
-        onConfirm: () => {
-          handleSavePatientToRegistry(values, helpers.setValues, verificationSearchParams.registry);
-          dispose();
-        },
-        close: () => dispose(),
-        registry: verificationSearchParams.registry,
-        isOffline,
-      });
-    }
+    // if (verificationSearchParams.registry.length) {
+    //   const dispose = showModal('post-to-registry-modal', {
+    //     onConfirm: () => {
+    //       handleSavePatientToRegistry(values, helpers.setValues, verificationSearchParams.registry);
+    //       dispose();
+    //     },
+    //     close: () => dispose(),
+    //     registry: verificationSearchParams.registry,
+    //     isOffline,
+    //   });
+    // }
     const abortController = new AbortController();
     helpers.setSubmitting(true);
 

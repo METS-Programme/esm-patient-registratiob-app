@@ -4,11 +4,15 @@ import useSWR from 'swr';
 import { ConceptAnswers, ConceptResponse, FormValues } from '../patient-registration/patient-registration.types';
 import { patientRegistries } from './verification-constants';
 
-export const searchRegistry = async (searchParams) => {
+export const searchRegistry = async (searchParams, advancedSearchParams) => {
   const { registry, identifier } = searchParams;
+  const { firstName, familyName, otherName } = advancedSearchParams;
   let selectedRegistry = patientRegistries.filter((r) => r.name === registry);
   if (selectedRegistry.length) {
-    const query = `${selectedRegistry[0].url}/fhir/Patient?identifier=${identifier}`;
+    const searchWithFirstName = `phonetic=${firstName}`;
+    const searchWithIdentifier = `identifier=${identifier}`;
+    const query =
+      `${selectedRegistry[0].url}/fhir/Patient?` + (identifier ? searchWithIdentifier : searchWithFirstName);
     try {
       let res = await fetch(query);
       return await res.json();

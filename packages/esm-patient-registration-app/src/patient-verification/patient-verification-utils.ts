@@ -38,7 +38,7 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
     });
   }
 
-  if (clientResponse?.total === 1) {
+  if (clientResponse?.total >= 1) {
     const {
       resource: { identifier, name, gender, birthDate, deceasedBoolean, address },
     } = clientResponse.entry[0];
@@ -47,22 +47,28 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
 
     const { city, country } = address[0];
 
-    const emrIdentifier = {
-      ['patientUIC']: {
-        initialValue:
-          identifier.length &&
-          identifier.filter((id) => id['type']['text'] === 'Patient Unique  ID Code (UIC)')[0]['value'],
-        identifierUuid: undefined,
-        selectedSource: { uuid: '', name: '' },
-        preferred: false,
-        required: false,
-        identifierTypeUuid: '877169c4-92c6-4cc9-bf45-1ab95faea242',
-        identifierName: 'Patient Unique  ID Code (UIC)',
-        identifierValue:
-          identifier.length &&
-          identifier.filter((id) => id['type']['text'] === 'Patient Unique  ID Code (UIC)')[0]['value'],
-      },
-    };
+    let patientUIC;
+    identifier?.map((id) => {
+      if (id['type']['text'] === 'Patient Unique  ID Code (UIC)') {
+        return (patientUIC = id['type']['value']);
+      }
+    });
+
+    let emrIdentifier;
+    if (patientUIC) {
+      emrIdentifier = {
+        ['patientUIC']: {
+          initialValue: patientUIC,
+          identifierUuid: undefined,
+          selectedSource: { uuid: '', name: '' },
+          preferred: false,
+          required: false,
+          identifierTypeUuid: '877169c4-92c6-4cc9-bf45-1ab95faea242',
+          identifierName: 'Patient Unique  ID Code (UIC)',
+          identifierValue: patientUIC,
+        },
+      };
+    }
 
     const dispose = showModal('confirm-registry-modal', {
       onConfirm: () => {
@@ -78,7 +84,7 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
             address1: city,
             country: country,
           },
-          identifiers: { ...props.values.identifiers, ...emrIdentifier },
+          identifiers: { ...props.values.identifiers, ...(emrIdentifier ?? {}) },
         });
         dispose();
       },
@@ -153,7 +159,7 @@ const extractIdentifiers = (identifiers) => {
 };
 
 export function generateFHIRPayload(formValues: FormValues): ClientPostBody {
-  let clientPostBody: ClientPostBody = {
+  return {
     resourceType: 'Bundle',
     type: 'transaction',
     entry: [
@@ -179,7 +185,6 @@ export function generateFHIRPayload(formValues: FormValues): ClientPostBody {
       },
     ],
   };
-  return clientPostBody;
 }
 
 function replaceLettersWithNumber(letter) {

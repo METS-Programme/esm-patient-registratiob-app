@@ -51,13 +51,13 @@ const PatientVerification: React.FC<PatientVerificationProps> = ({
     evt.stopPropagation();
     setIsLoadingSearch(true);
     try {
-      const registryResponse = await searchRegistry(verificationParams);
+      const registryResponse = await searchRegistry(verificationParams, advancedSearchParams);
       setIsLoadingSearch(false);
       handleRegistryResponse(registryResponse, formProps, advancedSearchParams, verificationParams.identifier);
     } catch (error) {
       showToast({
         title: 'Client registry error',
-        description: `Please reload the registration page and try again, if the issue persist contact system administrator`,
+        description: `Please reload the registration page and try again, if the issue persists contact system administrator`,
         millis: 10000,
         kind: 'error',
         critical: true,
