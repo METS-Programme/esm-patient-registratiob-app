@@ -1,7 +1,9 @@
-import { showModal } from '@openmrs/esm-framework';
+import { age, formatDate, showModal } from '@openmrs/esm-framework';
 import { FormikProps } from 'formik';
 import { Address, AdvancedSearchParameters, ClientPostBody, RegistryResponse } from './verification-types';
 import { FormValues } from '../patient-registration/patient-registration.types';
+import capitalize from 'lodash-es/capitalize';
+import { TableAction } from './verification-modal/multiple-patient.component';
 
 export function handleRegistryResponse(clientResponse: RegistryResponse, props: FormikProps<FormValues>, values, UIC) {
   if (clientResponse?.total === 0) {
@@ -36,9 +38,7 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
       },
       close: () => dispose(),
     });
-  }
-
-  if (clientResponse?.total >= 1) {
+  } else if (clientResponse?.total === 1) {
     const {
       resource: { identifier, name, gender, birthDate, deceasedBoolean, address },
     } = clientResponse.entry[0];
@@ -90,6 +90,45 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
       },
       close: () => dispose(),
       patient: clientResponse.entry[0]['resource'],
+    });
+  } else {
+    let patientData = [];
+    clientResponse?.entry?.map((registryPatient) => {
+      const {
+        resource: { name, gender, birthDate, deceasedBoolean, address },
+      } = registryPatient;
+      const { family, given } = name[0];
+      const { city, country } = address[0];
+
+      patientData.push({
+        names: `${family} ${given}`,
+        age: age(birthDate),
+        birthdate: formatDate(new Date(birthDate)),
+        gender: capitalize(gender),
+        actions: TableAction(() => {
+          props.setValues({
+            ...props.values,
+            familyName: family,
+            middleName: given[1]?.length ? given[1] : '',
+            givenName: given[0],
+            gender: gender === 'male' ? 'Male' : 'Female',
+            birthdate: new Date(birthDate),
+            isDead: deceasedBoolean,
+            address: {
+              address1: city,
+              country: country,
+            },
+            identifiers: { ...props.values.identifiers },
+          });
+          dispose();
+        }),
+      });
+    });
+
+    const dispose = showModal('multiple-patient-modal', {
+      onConfirm: () => dispose(),
+      close: () => dispose(),
+      patient: patientData,
     });
   }
 }

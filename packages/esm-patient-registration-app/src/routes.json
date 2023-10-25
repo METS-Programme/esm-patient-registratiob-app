@@ -68,6 +68,12 @@
       "name": "post-to-registry-modal",
       "online": true,
       "offline": true
+    },
+    {
+      "component": "multiplePatientModal",
+      "name": "multiple-patient-modal",
+      "online": true,
+      "offline": true
     }
   ]
 }

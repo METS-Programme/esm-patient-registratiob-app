@@ -7,12 +7,28 @@ import { patientRegistries } from './verification-constants';
 export const searchRegistry = async (searchParams, advancedSearchParams) => {
   const { registry, identifier } = searchParams;
   const { firstName, familyName, otherName } = advancedSearchParams;
+  let enteredFields = [];
+  let urlParams = '';
+
   let selectedRegistry = patientRegistries.filter((r) => r.name === registry);
   if (selectedRegistry.length) {
-    const searchWithFirstName = `phonetic=${firstName}`;
-    const searchWithIdentifier = `identifier=${identifier}`;
-    const query =
-      `${selectedRegistry[0].url}/fhir/Patient?` + (identifier ? searchWithIdentifier : searchWithFirstName);
+    if (identifier) {
+      urlParams = `?identifier=${identifier}`;
+    } else {
+      const fields = [firstName, familyName, otherName].filter(Boolean);
+      const filledCount = fields.length;
+
+      if (filledCount === 1) {
+        urlParams = `?phonetic=${fields[0]}`;
+      } else if (filledCount === 2) {
+        urlParams = `?name=${fields[0]}&name=${fields[1]}`;
+      } else if (filledCount === 3) {
+        urlParams = `?name=${fields[0]}&name=${fields[1]}&name=${fields[2]}`;
+      }
+    }
+    urlParams = urlParams + '&_tag:not=5c827da5-4858-4f3d-a50c-62ece001efea';
+
+    const query = `${selectedRegistry[0].url}/fhir/Patient` + urlParams;
     try {
       let res = await fetch(query);
       return await res.json();

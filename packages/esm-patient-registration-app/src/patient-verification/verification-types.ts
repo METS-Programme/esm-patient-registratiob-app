@@ -55,6 +55,7 @@ export interface CRPatientDetails {
     city: string;
     country: string;
   }>;
+
   managingOrganization?: {
     reference: string;
     type: string;

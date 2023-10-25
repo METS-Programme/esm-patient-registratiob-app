@@ -72,3 +72,8 @@ export const postToRegistryModal = getAsyncLifecycle(
   () => import('./patient-verification/verification-modal/registry-prompt.component'),
   options,
 );
+
+export const multiplePatientModal = getAsyncLifecycle(
+  () => import('./patient-verification/verification-modal/multiple-patient.component'),
+  options,
+);

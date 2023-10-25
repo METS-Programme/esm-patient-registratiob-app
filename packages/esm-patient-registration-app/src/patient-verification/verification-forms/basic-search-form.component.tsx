@@ -35,7 +35,7 @@ const BasicSearchForm = ({ isLoading, basicSearchParams, setBasicSearchParams, h
           <div className={styles.layer}>
             {!isLoading ? (
               <Button className={styles.fullWidth} disabled={disableButton} size="md" onClick={handleSearch}>
-                {t('verify', 'Verify')}
+                {t('search', 'Search Registry')}
               </Button>
             ) : (
               <InlineLoading status="active" iconDescription="Loading" description="Searching registry" />
