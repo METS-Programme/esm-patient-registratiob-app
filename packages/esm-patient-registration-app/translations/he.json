@@ -58,6 +58,7 @@
   "negativeMonths": "חודשים שליליים",
   "negativeYears": "שנים שליליות",
   "no": "לא",
+  "No data": "No data to display",
   "noMatchingRecordsFoundInRegistry": "No matching records found",
   "noResultsFound": "לא נמצאו תוצאות",
   "numberInNameDubious": "מספר בשם חשוד",
@@ -84,7 +85,9 @@
   "relativeNamePlaceholder": "שם פרטי שם משפחה",
   "resetIdentifierTooltip": "איפוס",
   "restoreRelationshipActionButton": "ביטול",
+  "search": "Search Registry",
   "searchAddress": "חיפוש כתובת",
+  "searchThisList": "Search this list",
   "selectAnOption": "Select an option",
   "selectCountry": "Select Country",
   "selectGender": "Select Gender",
@@ -96,7 +99,6 @@
   "updatePatient": "עדכון פרטי מטופל",
   "updationSuccessToastDescription": "פרטי המטופל עודכנו בהצלחה",
   "updationSuccessToastTitle": "פרטי המטופל עודכנו",
-  "verify": "Verify",
   "yearsEstimateRequired": "נדרש חיזוי שנים",
   "yes": "כן"
 }
