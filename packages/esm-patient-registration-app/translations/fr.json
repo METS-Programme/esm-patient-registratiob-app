@@ -58,6 +58,7 @@
   "negativeMonths": "Mois négatifs",
   "negativeYears": "Années négatives",
   "no": "Non",
+  "No data": "No data to display",
   "noMatchingRecordsFoundInRegistry": "No matching records found",
   "noResultsFound": "Aucun résultat trouvé",
   "numberInNameDubious": "Le chiffre dans le nom est suspect",
@@ -84,7 +85,9 @@
   "relativeNamePlaceholder": "Prénom Nom de famile",
   "resetIdentifierTooltip": "Réinitialiser",
   "restoreRelationshipActionButton": "Annuler",
+  "search": "Search Registry",
   "searchAddress": "Chercher l'adresse",
+  "searchThisList": "Search this list",
   "selectAnOption": "Select an option",
   "selectCountry": "Select Country",
   "selectGender": "Select Gender",
@@ -96,7 +99,6 @@
   "updatePatient": "Mettre à jour le patient",
   "updationSuccessToastDescription": "Les informations du patient ont été mises à jour avec succès",
   "updationSuccessToastTitle": "Les informations du patients ont été mises à jour",
-  "verify": "Verify",
   "yearsEstimateRequired": "Estimation du nombre d'années requise",
   "yes": "Oui"
 }

@@ -13,7 +13,7 @@ export const searchRegistry = async (searchParams, advancedSearchParams) => {
   let selectedRegistry = patientRegistries.filter((r) => r.name === registry);
   if (selectedRegistry.length) {
     if (identifier) {
-      urlParams = `?identifier=${identifier}`;
+      urlParams = `?identifier=${identifier.toUpperCase()}`;
     } else {
       const fields = [firstName, familyName, otherName].filter(Boolean);
       const filledCount = fields.length;

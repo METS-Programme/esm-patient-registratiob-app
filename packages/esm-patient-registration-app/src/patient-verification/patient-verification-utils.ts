@@ -40,7 +40,7 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
     });
   } else if (clientResponse?.total === 1) {
     const {
-      resource: { identifier, name, gender, birthDate, deceasedBoolean, address },
+      resource: { identifier, name, gender, birthDate, address },
     } = clientResponse.entry[0];
 
     const { family, given } = name[0];
@@ -79,7 +79,6 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
           givenName: given[0],
           gender: gender === 'male' ? 'Male' : 'Female',
           birthdate: new Date(birthDate),
-          isDead: deceasedBoolean,
           address: {
             address1: city,
             country: country,
@@ -95,7 +94,7 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
     let patientData = [];
     clientResponse?.entry?.map((registryPatient) => {
       const {
-        resource: { name, gender, birthDate, deceasedBoolean, address },
+        resource: { name, gender, birthDate, address },
       } = registryPatient;
       const { family, given } = name[0];
       const { city, country } = address[0];
@@ -113,7 +112,6 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
             givenName: given[0],
             gender: gender === 'male' ? 'Male' : 'Female',
             birthdate: new Date(birthDate),
-            isDead: deceasedBoolean,
             address: {
               address1: city,
               country: country,
@@ -212,7 +210,6 @@ export function generateFHIRPayload(formValues: FormValues): ClientPostBody {
           ],
           gender: formValues?.gender.toLowerCase(),
           birthDate: new Date(formValues?.birthdate).toISOString(),
-          deceasedBoolean: !formValues?.isDead,
           address: [extractAddress(formValues.address)],
           identifier: extractIdentifiers(formValues.identifiers),
           resourceType: 'Patient',
