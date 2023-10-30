@@ -55,7 +55,10 @@ export interface CRPatientDetails {
     city: string;
     country: string;
   }>;
-
+  telecom?: Array<{
+    system: string;
+    value: string;
+  }>;
   managingOrganization?: {
     reference: string;
     type: string;

@@ -40,12 +40,10 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
     });
   } else if (clientResponse?.total === 1) {
     const {
-      resource: { identifier, name, gender, birthDate, address },
+      resource: { identifier, name, gender, birthDate, address, telecom },
     } = clientResponse.entry[0];
 
     const { family, given } = name[0];
-
-    const { city, country } = address[0];
 
     let patientUIC;
     identifier?.map((id) => {
@@ -79,11 +77,11 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
           givenName: given[0],
           gender: gender === 'male' ? 'Male' : 'Female',
           birthdate: new Date(birthDate),
-          address: {
-            address1: city,
-            country: country,
-          },
+          address: getAddress(address),
           identifiers: { ...props.values.identifiers, ...(emrIdentifier ?? {}) },
+          attributes: {
+            '14d4f066-15f5-102d-96e4-000c29c2a5d7': telecom?.find((item) => item.system === 'phone')?.value,
+          },
         });
         dispose();
       },
@@ -94,10 +92,9 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
     let patientData = [];
     clientResponse?.entry?.map((registryPatient) => {
       const {
-        resource: { name, gender, birthDate, address },
+        resource: { name, gender, birthDate, address, telecom },
       } = registryPatient;
       const { family, given } = name[0];
-      const { city, country } = address[0];
 
       patientData.push({
         names: `${family} ${given}`,
@@ -112,11 +109,11 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
             givenName: given[0],
             gender: gender === 'male' ? 'Male' : 'Female',
             birthdate: new Date(birthDate),
-            address: {
-              address1: city,
-              country: country,
-            },
+            address: getAddress(address),
             identifiers: { ...props.values.identifiers },
+            attributes: {
+              '14d4f066-15f5-102d-96e4-000c29c2a5d7': telecom?.find((item) => item.system === 'phone')?.value,
+            },
           });
           dispose();
         }),
@@ -131,7 +128,33 @@ export function handleRegistryResponse(clientResponse: RegistryResponse, props: 
   }
 }
 
-const extractAddress = function (formAddressValue) {
+const getAddress = (address) => {
+  const { extension, district, country } = address[0];
+
+  const county = extension[0].extension.find(
+    (ext) => ext.url === 'http://fhir.openmrs.org/ext/address#county',
+  )?.valueString;
+  const subcounty = extension[0].extension.find(
+    (ext) => ext.url === 'http://fhir.openmrs.org/ext/address#subcounty',
+  )?.valueString;
+  const parish = extension[0].extension.find(
+    (ext) => ext.url === 'http://fhir.openmrs.org/ext/address#parish',
+  )?.valueString;
+  const village = extension[0].extension.find(
+    (ext) => ext.url === 'http://fhir.openmrs.org/ext/address#village',
+  )?.valueString;
+
+  return {
+    country: country,
+    countyDistrict: district,
+    stateProvince: county,
+    address3: subcounty,
+    address4: parish,
+    address5: village,
+  };
+};
+
+const extractAddress = (formAddressValue) => {
   let address: Address = {
     extension: [],
   };
