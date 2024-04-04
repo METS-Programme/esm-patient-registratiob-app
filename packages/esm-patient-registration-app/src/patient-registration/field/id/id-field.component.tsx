@@ -64,7 +64,7 @@ export const Identifiers: React.FC = () => {
   const { t } = useTranslation();
   const layout = useLayoutType();
   const [showIdentifierOverlay, setShowIdentifierOverlay] = useState(false);
-  const [showFingerPrintOverlay, setShowFingerPrintOverlay] = useState(true);
+  const [showFingerPrintOverlay, setShowFingerPrintOverlay] = useState(false);
   const config = useConfig();
   const { defaultPatientIdentifierTypes } = config;
 
@@ -128,6 +128,13 @@ export const Identifiers: React.FC = () => {
           </Button>
         </div>
       </UserHasAccess>
+      <Button
+        kind="ghost"
+        className={styles.setIDNumberButton}
+        onClick={() => setShowFingerPrintOverlay(true)}
+        size={isDesktop(layout) ? 'sm' : 'md'}>
+        {t('addFingerPrint', 'Add FingerPrint')}
+      </Button>
       <div>
         {Object.entries(values.identifiers).map(([fieldName, identifier]) => (
           <IdentifierInput key={fieldName} fieldName={fieldName} patientIdentifier={identifier} />
