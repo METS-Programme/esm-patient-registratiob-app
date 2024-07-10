@@ -8,7 +8,7 @@
   "license": "MPL-2.0",
   "homepage": "https://github.com/METS-Programme/esm-patient-registration-app#readme",
   "scripts": {
-    "start": "openmrs develop --backend http://localhost:8083",
+    "start": "openmrs develop",
     "serve": "webpack serve --mode=development",
     "debug": "npm run serve",
     "build": "webpack --mode production",
