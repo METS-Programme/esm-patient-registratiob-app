@@ -119,7 +119,6 @@ export async function handleSavePatientToRegistry(
     showToast({
       title: `${selectedRegistry} error`,
       description: `${error}`,
-      millis: 10000,
       kind: 'error',
       critical: true,
     });

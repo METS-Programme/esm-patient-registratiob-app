@@ -22,6 +22,11 @@ const MultiplePatientPrompt: React.FC<MultiplePatientPromptProps> = ({ close, on
       <div className="cds--modal-content">
         {patient.length > 0 ? <DataList data={patient} columns={registryPatientHeaders} /> : <EmptyStateComponent />}
       </div>
+      <div className="cds--modal-footer">
+        <Button kind="secondary" onClick={close}>
+          {t('close', 'Close')}
+        </Button>
+      </div>
     </>
   );
 };

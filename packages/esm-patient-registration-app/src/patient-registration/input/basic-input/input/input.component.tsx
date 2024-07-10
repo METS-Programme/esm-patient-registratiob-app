@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Layer, TextInput, TextInputProps } from '@carbon/react';
+import { Layer, TextInput } from '@carbon/react';
 import { useField } from 'formik';
 
-interface InputProps extends TextInputProps {
+interface InputProps {
   checkWarning?(value: string): string;
 }
 

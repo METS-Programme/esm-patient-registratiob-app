@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Layer, Search, SearchProps } from '@carbon/react';
+import { Layer, Search } from '@carbon/react';
 import styles from './autosuggest.scss';
 
-interface AutosuggestProps extends SearchProps {
+interface AutosuggestProps {
   getDisplayValue: Function;
   getFieldValue: Function;
   getSearchResults: (query: string) => Promise<any>;

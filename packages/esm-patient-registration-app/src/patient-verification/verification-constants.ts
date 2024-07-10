@@ -9,7 +9,7 @@ export const patientRegistries = [
     uuid: '',
     id: 2,
     name: 'Shared Health Record (SHR)',
-    url: 'http://165.232.114.52:8080',
+    url: 'http://165.227.170.84:9091',
   },
   {
     uuid: '',

@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "openmrs develop --sources 'packages/esm-*-app' --backend http://194.163.171.253:8282",
+    "start": "openmrs develop --sources 'packages/esm-*-app' --backend http://localhost:8083",
     "ci:publish": "lerna publish from-package --yes",
     "ci:prepublish": "lerna publish from-package --no-git-reset --yes --dist-tag next",
     "release": "lerna version --no-git-tag-version",
