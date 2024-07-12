@@ -132,18 +132,6 @@
   justify-content: flex-end;
 }
 
-:global(.omrs-breakpoint-lt-desktop) {
-  .toolbarWrapper {
-    height: spacing.$spacing-09;
-  }
-}
-
-:global(.omrs-breakpoint-gt-tablet) {
-  .toolbarWrapper {
-    height: spacing.$spacing-07;
-  }
-}
-
 .tableContainer {
   padding: 0;
 
