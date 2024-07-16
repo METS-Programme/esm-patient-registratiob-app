@@ -3,7 +3,7 @@ export const patientRegistries = [
     uuid: '84242661-aadf-42e4-9431-bf8afefb4433',
     id: 1,
     name: 'Client Registry (CR)',
-    url: 'http://165.232.114.52:3000',
+    url: 'http://165.232.114.52:8085/hapi-fhir-jpaserver',
   },
   {
     uuid: '',
