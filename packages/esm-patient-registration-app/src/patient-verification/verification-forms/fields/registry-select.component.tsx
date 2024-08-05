@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Select, SelectItem } from '@carbon/react';
-import { patientRegistries } from '../../verification-constants';
+import { useGetPatientRegistries } from '../../verification-constants';
 import styles from '../../patient-verification.scss';
 
 const RegistrySelect = ({ values, setValues }) => {
@@ -22,8 +22,8 @@ const RegistrySelect = ({ values, setValues }) => {
       <SelectItem key={'registry'} text={'Select Registry'} value={''}>
         {' '}
       </SelectItem>
-      {patientRegistries.map((registry) => (
-        <SelectItem key={registry.id} text={registry.name} value={registry.name}>
+      {useGetPatientRegistries()?.patientRegistries.map((registry) => (
+        <SelectItem key={registry.uuid} text={registry.name} value={registry.url}>
           {registry.name}
         </SelectItem>
       ))}
