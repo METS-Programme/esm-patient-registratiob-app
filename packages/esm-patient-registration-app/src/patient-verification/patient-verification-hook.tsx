@@ -2,7 +2,7 @@ import { FetchResponse, openmrsFetch, showNotification, showToast, showModal } f
 import { generateFHIRPayload } from './patient-verification-utils';
 import useSWR from 'swr';
 import { ConceptAnswers, ConceptResponse, FormValues } from '../patient-registration/patient-registration.types';
-import { patientRegistries } from './verification-constants';
+// import { patientRegistries } from './verification-constants';
 
 export const searchRegistry = async (searchParams, advancedSearchParams) => {
   const { registry, identifier } = searchParams;
@@ -55,9 +55,8 @@ export function useConceptAnswers(conceptUuid: string): { data: Array<ConceptAns
 
 export function savePatientToRegistry(formValues: FormValues, registry) {
   const createdRegistryPatient = generateFHIRPayload(formValues);
-  let selectedRegistry = patientRegistries.filter((r) => r.name === registry);
-  if (selectedRegistry.length) {
-    return fetch(`${selectedRegistry[0].url}/fhir`, {
+  if (registry) {
+    return fetch(`${registry}/fhir`, {
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       method: 'POST',
       body: JSON.stringify(createdRegistryPatient),
