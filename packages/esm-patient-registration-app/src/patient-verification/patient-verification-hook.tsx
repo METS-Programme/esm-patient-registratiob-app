@@ -28,7 +28,7 @@ export const searchRegistry = async (searchParams, advancedSearchParams) => {
     }
     urlParams = urlParams + '&_tag:not=5c827da5-4858-4f3d-a50c-62ece001efea';
 
-    const query = `${registry}/fhir/Patient` + urlParams;
+    const query = `${registry}` + urlParams;
     try {
       let res = await fetch(query);
       return await res.json();
@@ -56,7 +56,7 @@ export function useConceptAnswers(conceptUuid: string): { data: Array<ConceptAns
 export function savePatientToRegistry(formValues: FormValues, registry) {
   const createdRegistryPatient = generateFHIRPayload(formValues);
   if (registry) {
-    return fetch(`${registry}/fhir`, {
+    return fetch(`${registry}`, {
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       method: 'POST',
       body: JSON.stringify(createdRegistryPatient),
