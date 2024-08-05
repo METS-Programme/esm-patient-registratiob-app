@@ -10,8 +10,8 @@ export const searchRegistry = async (searchParams, advancedSearchParams) => {
   let enteredFields = [];
   let urlParams = '';
 
-  let selectedRegistry = patientRegistries.filter((r) => r.name === registry);
-  if (selectedRegistry.length) {
+  // let selectedRegistry = patientRegistries.filter((r) => r.name === registry);
+  if (registry) {
     if (identifier) {
       urlParams = `?identifier=${identifier.toUpperCase()}`;
     } else {
@@ -28,7 +28,7 @@ export const searchRegistry = async (searchParams, advancedSearchParams) => {
     }
     urlParams = urlParams + '&_tag:not=5c827da5-4858-4f3d-a50c-62ece001efea';
 
-    const query = `${selectedRegistry[0].url}/fhir/Patient` + urlParams;
+    const query = `${registry}/fhir/Patient` + urlParams;
     try {
       let res = await fetch(query);
       return await res.json();
